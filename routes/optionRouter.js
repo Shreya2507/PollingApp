@@ -55,6 +55,20 @@ router.post('/:id/createOption', getQuestion, async (req, res) => {
 })
 
 
+//DISPLAY ALL
+router.get('/:id/showQuestions', async (req, res) => {
+    try {
+        const questions = await Question.find();
+        res.json(questions)
+
+    } catch (error) {
+        
+
+    }
+
+})
+
+
 
 
 //UPDATE
@@ -111,6 +125,8 @@ router.delete('/:id/deleteOption', async (req, res) => {
 
 
         await res.option.deleteOne()
+        res.question.options.pop(option); //Delete option from array
+        res.question.save();
         res.json({message: "Option deleted"})
 
     } catch (error) {

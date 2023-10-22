@@ -1,7 +1,8 @@
 const express = require('express')
+const cors = require('cors');
 const app = express()
 const connection = require('./connection')
-
+app.use(cors());
 //Establish connection
 connection();
 
@@ -17,6 +18,8 @@ app.use('/api', questionRouter)
 app.use('/api', optionRouter)
 
 
+//For Frontend
+// app.use(express.static('public'));
 
 
 app.listen(1234, (error)=> {
