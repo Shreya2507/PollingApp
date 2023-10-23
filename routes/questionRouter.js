@@ -32,11 +32,25 @@ router.get('/showQuestions', async (req, res) => {
         res.json(questions)
 
     } catch (error) {
-        
+        req.status(400).json({message: error.message})        
 
     }
 
 })
+
+
+//DISPLAY BY ID
+router.get('/:id/showQuestion', getQuestion, async (req, res) => {
+    try {
+        res.json(res.question)
+
+    } catch (error) {
+        req.status(400).json({message: error.message})        
+
+    }
+
+})
+
 
 
 

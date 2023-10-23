@@ -56,13 +56,26 @@ router.post('/:id/createOption', getQuestion, async (req, res) => {
 
 
 //DISPLAY ALL
-router.get('/:id/showQuestions', async (req, res) => {
+router.get('/:id/showOptions', async (req, res) => {
+    let question
+    let option
+    let optionsArray = []
     try {
-        const questions = await Question.find();
-        res.json(questions)
+        question = await Question.findById(req.params.id)
+        if (question == null){
+            return res.status(400).json({message: "Cannot find question"})
+        }
+
+        const options = question.options;
+        for( let i = 0; i < options.length; i++ ){
+            option = await Option.findById(options[i])
+            optionsArray.push(option)
+        }
+        
+        res.json(optionsArray)
 
     } catch (error) {
-        
+        res.status(400).json({ message: error.message })        
 
     }
 
