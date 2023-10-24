@@ -67,7 +67,7 @@ router.get('/:id/showOptions', async (req, res) => {
         }
 
         const options = question.options;
-        for( let i = 0; i < options.length; i++ ){
+        for( let i = 0; i < options.length - 1; i++ ){
             option = await Option.findById(options[i])
             optionsArray.push(option)
         }

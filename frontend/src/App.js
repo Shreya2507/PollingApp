@@ -1,78 +1,43 @@
 import { useState, useEffect } from "react";
 import BarChart from "./components/BarChart";
+import { UserData } from './data'
 
-function ScenarioList() {
-
-  
-  
-  let [question, setQuestion] = useState({});
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("http://localhost:1234/api/6533c4490e9c16c7171df789/showQuestion")
-      .then(response => response.json())
-      .then(data => {
-        setQuestion(data);
-        setLoading(false);
-      })
-  }, []);
+function App() {
 
 
+  const [userData, setUserData] = useState({
+    labels: [10, 20, 40, 80],
+    datasets: [
+      {
+        label: "Users Gained",
+        data: [1, 5, 10, 20],
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+    ],
+  });
 
-  const [options, setOptions] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:1234/api/6533c4490e9c16c7171df789/showOptions")
-      .then(response => response.json())
-      .then(data => {
-        setOptions(data);
-        setLoading(false);
-      })
-  }, []);
-
-
-  // const [myData, setMyData] = useState({
-  //   labels: options?.map((o) => (o.title)),
-  //   datasets: [{
-  //     label: "Votes",
-  //     data: options?.map((o) => (o.votes))
-  //   }]
-  // })
-
-
-  const [myData, setMyData] = useState({
-    labels: ["A", "B", "C"],
-    datasets: [{
-      label: "Votes",
-      data: [1, 5, 10, 25, 3, 30]
-    }]
-  })
-
-  const [isToggled, setIsToggled] = useState(false);
+  console.log(UserData)
 
 
-  if (loading) {
-    return (
-      <div>Loading...</div>
-    )
-  }
-
-  
 
   return (
-    <div>
-      {/* <div>{JSON.stringify(questions)}</div> */}
-      <div className="Chart-heading">{question.title}</div>
-
-      <button onClick={()=> setIsToggled(!isToggled)}>Render</button>
-      {isToggled && <BarChart chartData={ myData } />}
-      
-
-      <div>
-
+    <div className="App">
+      <div style={{ width: 700 }}>
+        <BarChart chartData={userData} />
       </div>
     </div>
-  )
+  );
+
+  
+
 }
 
-export default ScenarioList
+export default App
