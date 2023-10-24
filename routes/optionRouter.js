@@ -67,7 +67,7 @@ router.get('/:id/showOptions', async (req, res) => {
         }
 
         const options = question.options;
-        for( let i = 0; i < options.length - 1; i++ ){
+        for( let i = 0; i < options.length; i++ ){
             option = await Option.findById(options[i])
             optionsArray.push(option)
         }
@@ -138,7 +138,7 @@ router.delete('/:id/deleteOption', async (req, res) => {
 
 
         await res.option.deleteOne()
-        res.question.options.pop(option); //Delete option from array
+        res.question.options.pull(option); //Delete option from array
         res.question.save();
         res.json({message: "Option deleted"})
 
