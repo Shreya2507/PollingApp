@@ -7,8 +7,8 @@ function App() {
   let [question, setQuestion] = useState({});
   const [options, setOptions] = useState([]);
   const [myData, setMyData] = useState({})
-  const request1 = fetch('http://localhost:1234/api/6533c4490e9c16c7171df789/showQuestion').then(response => response.json());
-  const request2 = fetch('http://localhost:1234/api/6533c4490e9c16c7171df789/showOptions').then(response => response.json());
+  const request1 = fetch('http://localhost:1234/api/6533c7f51abc2cb921aed63d/showQuestion').then(response => response.json());
+  const request2 = fetch('http://localhost:1234/api/6533c7f51abc2cb921aed63d/showOptions').then(response => response.json());
   useEffect(() => {
     Promise.all([request1, request2])
       .then(([data1, data2]) => {
@@ -104,7 +104,6 @@ function App() {
     <div className="App">
       <div className="Chart-heading">{question.title}</div>
       {/* <div>{console.log(Array.isArray(options?.map((o) => (o.title)))) }</div> */}
-      {console.log(options?.map((o) => (o.title)))}
       {console.log(options?.map((o) => (o.title)))}
       
 
