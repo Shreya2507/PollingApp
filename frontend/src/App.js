@@ -62,18 +62,50 @@ function App() {
     }
   }, [options]);
 
+
+  function addVote(id){
+    const url = 'http://localhost:1234/api/' + id + '/addVote';
+    console.log(url)
+    fetch(url, {  
+
+      method: 'POST', 
+      mode: 'cors', 
+      body: JSON.stringify() 
+
+    });
+    console.log("sent")
+    window.location.reload();
+
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="App">
-      <div className="Chart-heading">{question.title}</div>
+      <div className="main">
+        <div className="Chart-heading">{question.title}</div>
+
+        <div className="button-container">
+          {options.map((o) => (
+            <button key={o.title} onClick={event => addVote(o._id.toString())} className="btn">
+              {o.title}
+            </button>
+          ))}
+        </div>
+      </div>
+
+
+
+
+
       <div>{console.log(Array.isArray(options.map((o) => o.title)))}</div>
       <div className="chart" style={{ width: 600 }}>
         <PieChart chartData={myData} />
       </div>
     </div>
+
   );
 }
 

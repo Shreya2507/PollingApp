@@ -2,18 +2,61 @@
 
 body{
   font-family: 'Poppins', sans-serif;
+}
+
+.main{
+  height: 200px;
+  width: 550px;
+  position: absolute;
+  top: 270px;
+  right: 70px;
+
+  padding: 10px;
+
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 
 }
 
 .Chart-heading{
-  float: right;
-  position: relative;
-  top: 270px;
-  right: 150px;
-
+  text-align: center;
+  
   font-size: 30px;
   font-weight: bold;
+
+  margin-bottom: 20px;
 }
+
+.btn{
+  padding: 10px;
+  width: 80px;
+
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 4px;
+
+  margin: 10px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  transition: all 0.15s;
+}
+
+.btn:hover{
+  cursor: pointer;
+  background-color: black;
+  color: white;
+
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+
+
+}
+
+
 
 .chart{
   position: relative;
