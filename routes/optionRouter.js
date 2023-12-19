@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Option = require('../models/option')
 const Question = require('../models/question')
+const question = require('../models/question')
 
 //ADD A VOTE
 router.post('/:id/addVote', async (req, res) => {
@@ -62,20 +63,20 @@ router.get('/:id/showOptions', async (req, res) => {
     let optionsArray = []
     try {
         question = await Question.findById(req.params.id)
-        if (question == null){
-            return res.status(400).json({message: "Cannot find question"})
+        if (question == null) {
+            return res.status(400).json({ message: "Cannot find question" })
         }
 
         const options = question.options;
-        for( let i = 0; i < options.length; i++ ){
+        for (let i = 0; i < options.length; i++) {
             option = await Option.findById(options[i])
             optionsArray.push(option)
         }
-        
+
         res.json(optionsArray)
 
     } catch (error) {
-        res.status(400).json({ message: error.message })        
+        res.status(400).json({ message: error.message })
 
     }
 
@@ -93,7 +94,7 @@ router.patch('/:id/updateOption', async (req, res) => {
         option = await Option.findById(req.params.id)
         if (option == null) {
             return res.status(400).json({ message: "Cannot find option" })
-        }else{
+        } else {
             res.option = option;
         }
 
@@ -110,7 +111,7 @@ router.patch('/:id/updateOption', async (req, res) => {
         const updatedOption = await res.option.save()
         res.json(updatedOption)
 
-        res.question.options.push(updatedOption); //Save option in array
+        // res.question.options.push(updatedOption); //Save option in array
         res.question.save();
 
     } catch (error) {
@@ -131,16 +132,18 @@ router.delete('/:id/deleteOption', async (req, res) => {
         option = await Option.findById(req.params.id)
         if (option == null) {
             return res.status(400).json({ message: "Cannot find option" })
-        }else{
+        } else {
             res.option = option;
         }
+
+        // await res.option.deleteOne()
+        res.option.deleteOne()
         
-
-
-        await res.option.deleteOne()
-        res.question.options.pull(option); //Delete option from array
-        res.question.save();
-        res.json({message: "Option deleted"})
+        let question_new = await Question.findById(req.body.id)
+        
+        question_new.options.pull(option)
+        question_new.save();
+        res.json({ message: "Option deleted" })
 
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -160,7 +163,7 @@ async function getQuestion(req, res, next) {
             return res.status(400).json({ message: "Cannot find question" })
         }
     } catch (error) {
-        return res.status(500).json({ messgage: err.message })
+        return res.status(500).json({ messgage: error.message })
 
     }
 

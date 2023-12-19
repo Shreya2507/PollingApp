@@ -11,18 +11,22 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response1 = await fetch('http://localhost:1234/api/6533c7f51abc2cb921aed63d/showQuestion');
+        const response1 = await fetch('http://localhost:1234/api/6581d59fd36d599f5fb8ea3a/showQuestion');
         const data1 = await response1.json();
         setQuestion(data1);
 
-        const response2 = await fetch('http://localhost:1234/api/6533c7f51abc2cb921aed63d/showOptions');
+        const response2 = await fetch('http://localhost:1234/api/6581d59fd36d599f5fb8ea3a/showOptions');
         const data2 = await response2.json();
         setOptions(data2);
+
+        if(response1.status(400)){
+          setLoading(true);
+        }
 
         setLoading(false);
       } catch (error) {
         console.error(error);
-        setLoading(false);
+        setLoading(true);
       }
     };
 
@@ -95,9 +99,6 @@ function App() {
           ))}
         </div>
       </div>
-
-
-
 
 
       <div>{console.log(Array.isArray(options.map((o) => o.title)))}</div>
